@@ -6,20 +6,11 @@
  * @property array $articles
  */
 class View
-    implements Countable
+    implements Countable, Iterator
 {
 
-    protected $data;
 
-    public function __set($name, $value)
-    {
-        $this->data[$name] = $value;
-    }
-
-    public function __get($name)
-    {
-        return $this->data[$name];
-    }
+    use MagicTrait;
 
     public function count()
     {
@@ -29,6 +20,10 @@ class View
     public function render($template)
     {
         ob_start();
+        foreach ($this as $key => $val)
+        {
+            $$key = $val;
+        }
         include $template;
         $content = ob_get_contents();
         ob_end_clean();
@@ -38,6 +33,31 @@ class View
     public function display($template)
     {
         echo $this->render($template);
+    }
+
+    public function current()
+    {
+        return current($this->data);
+    }
+
+    public function next()
+    {
+        next($this->data);
+    }
+
+    public function key()
+    {
+        return key($this->data);
+    }
+
+    public function valid()
+    {
+        return null !== key($this->data);
+    }
+
+    public function rewind()
+    {
+        reset($this->data);
     }
 
 }

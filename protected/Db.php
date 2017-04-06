@@ -9,7 +9,7 @@ class Db
 
     protected function __construct()
     {
-        $this->dbh = new PDO('mysql:host=localhost;dbname=php2', 'root', '');
+        $this->dbh = new PDO('mysql:host=localhost;dbname=php', 'root', '');
     }
 
     public function query(string $sql, string $class = stdClass::class, array $data = [])

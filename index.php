@@ -1,9 +1,28 @@
 <?php
 
+$uri = $_SERVER['REQUEST_URI'];
+$parts = explode('/', $uri);
+
 require_once __DIR__ . '/protected/autoload.php';
 
-$view = new View;
+if (!empty($parts[1])) {
+    $controllerName = $parts[1];
+} else {
+    $controllerName = 'Index';
+}
 
-$view->articles = \Models\Article::findAll();
+$controllerClassName = '\\Controllers\\' . $controllerName;
+$controller = new $controllerClassName;
 
-$view->display(__DIR__ . '/templates/index.php');
+
+try {
+
+    if (!empty($parts[2])) {
+        $controller->action($parts[2]);
+    } else {
+        $controller->action('Default');
+    }
+
+} catch (Throwable $e) {
+    echo 'Error: ' . $e->getMessage();
+}

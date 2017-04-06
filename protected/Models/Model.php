@@ -15,6 +15,15 @@ abstract class Model
         return $db->query($sql, static::class);
     }
 
+    public static function findOneById($id)
+    {
+        $db = \Db::instance();
+        $sql = 'SELECT * FROM ' . static::TABLE . ' WHERE id=:id';
+        $res = $db->query($sql, static::class, [':id' => $id]);
+        return $res ? $res[0] : false;
+    }
+
+
     public function insert()
     {
         // @todo: изучить! var_dump(get_object_vars($this));
