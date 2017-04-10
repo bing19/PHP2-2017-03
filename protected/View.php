@@ -1,12 +1,14 @@
 <?php
 
+namespace App;
+
 /**
  * Class View
  *
  * @property array $articles
  */
 class View
-    implements Countable, Iterator
+    implements \Countable, \Iterator
 {
 
 

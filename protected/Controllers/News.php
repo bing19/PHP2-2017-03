@@ -1,13 +1,17 @@
 <?php
-namespace Controllers;
+
+namespace App\Controllers;
+
+use App\Controller;
+use App\Models\Article;
 
 class News
-    extends \Controller
+    extends Controller
 {
 
     protected function actionOne()
     {
-        $this->view->item = \Models\Article::findOneById($_GET['id']);
+        $this->view->item = Article::findOneById($_GET['id']);
         $this->view->display(__DIR__ . '/../../templates/one.php');
     }
 

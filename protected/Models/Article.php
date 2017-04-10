@@ -1,6 +1,8 @@
 <?php
 
-namespace Models;
+namespace App\Models;
+
+use App\Models\Model;
 
 class Article
     extends Model

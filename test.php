@@ -1,19 +1,18 @@
 <?php
 
-require_once __DIR__ . '/protected/autoload.php';
+$m2 = function ($x)
+{
+    return $x*2;
+};
 
-try {
-    $obj = new FluentClass();
+$m3 = function ($x)
+{
+    return $x*3;
+};
 
-    $obj->fill([
-        'foo' => 1, // setFoo
-        'bar' => -1,// setBar
-        'baz' => 0, // setBaz
-    ]);
-} catch (Errors $errors) {
-    foreach ($errors as $error) {
-        echo $error->getMessage();
-    }
+function apply($x, $func)
+{
+    return $func($x);
 }
 
-var_dump($obj->getValues());
+echo apply(2, $m3);

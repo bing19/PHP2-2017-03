@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 abstract class Controller
 {
 
@@ -7,7 +9,7 @@ abstract class Controller
 
     public function __construct()
     {
-        $this->view = new \View();
+        $this->view = new View();
     }
 
     protected function access($action)

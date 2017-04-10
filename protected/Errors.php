@@ -1,13 +1,15 @@
 <?php
 
+namespace App;
+
 class Errors
-    extends Exception
-    implements Iterator
+    extends \Exception
+    implements \Iterator
 {
 
     protected $data = [];
 
-    public function add(Exception $e) {
+    public function add(\Exception $e) {
         $this->data[] = $e;
     }
 

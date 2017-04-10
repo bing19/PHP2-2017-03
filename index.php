@@ -11,7 +11,7 @@ if (!empty($parts[1])) {
     $controllerName = 'Index';
 }
 
-$controllerClassName = '\\Controllers\\' . $controllerName;
+$controllerClassName = '\\App\\Controllers\\' . $controllerName;
 $controller = new $controllerClassName;
 
 

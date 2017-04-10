@@ -1,6 +1,8 @@
 <?php
 
-namespace Models;
+namespace App\Models;
+
+use App\Db;
 
 abstract class Model
 {
@@ -10,14 +12,14 @@ abstract class Model
 
     public static function findAll()
     {
-        $db = \Db::instance();
+        $db = Db::instance();
         $sql = 'SELECT * FROM ' . static::TABLE;
         return $db->query($sql, static::class);
     }
 
     public static function findOneById($id)
     {
-        $db = \Db::instance();
+        $db = Db::instance();
         $sql = 'SELECT * FROM ' . static::TABLE . ' WHERE id=:id';
         $res = $db->query($sql, static::class, [':id' => $id]);
         return $res ? $res[0] : false;
@@ -45,7 +47,7 @@ INSERT INTO ' . static::TABLE . ' (' . implode(', ',$columns) . ')
 VALUES (' . implode(', ',$params) . ')
         ';
 
-        $db = \Db::instance();
+        $db = Db::instance();
         $db->execute($sql, $data);
     }
 
