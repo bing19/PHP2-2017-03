@@ -1,18 +1,30 @@
 <?php
 
-$m2 = function ($x)
+interface LoggerInterface
 {
-    return $x*2;
-};
-
-$m3 = function ($x)
-{
-    return $x*3;
-};
-
-function apply($x, $func)
-{
-    return $func($x);
+    public function log(string $message);
 }
 
-echo apply(2, $m3);
+class Mailer
+{
+    /** @var LoggerInterface */
+    protected $logger;
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+    public function test()
+    {
+        echo 'Work...';
+        $this->logger->log('Finish');
+    }
+}
+
+$mailer = new Mailer();
+$mailer->setLogger(new class implements LoggerInterface {
+    public function log(string $message)
+    {
+        echo $message;
+    }
+});
+$mailer->test();

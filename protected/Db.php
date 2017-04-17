@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Exceptions\DbException;
+
 class Db
 {
 
@@ -11,7 +13,11 @@ class Db
 
     protected function __construct()
     {
-        $this->dbh = new \PDO('mysql:host=localhost;dbname=php2', 'root', '');
+        try {
+            $this->dbh = new \PDO('mysql:host=localhost;dbname=php2', 'root', '');
+        } catch (\PDOException $e) {
+            throw new DbException($e->getMessage());
+        }
     }
 
     public function query(string $sql, string $class = \stdClass::class, array $data = [])
@@ -21,7 +27,7 @@ class Db
         if ($res) {
             return $sth->fetchAll(\PDO::FETCH_CLASS, $class);
         } else {
-            return false;
+            throw new DbException('Query error');
         }
     }
 
